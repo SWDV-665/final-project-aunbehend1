@@ -1,0 +1,7 @@
+{
+  "name": "lookihavedone",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
