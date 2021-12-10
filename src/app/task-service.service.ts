@@ -9,7 +9,7 @@ import {map, catchError, retry} from 'rxjs/operators';
 })
 export class taskServiceProvider {
   
-  items: any = [];
+  tasks: any = [];
   dataChanged$: Observable<boolean>;
   
   private dataChangeSubject: Subject<boolean>;
@@ -25,9 +25,9 @@ export class taskServiceProvider {
     
 
 // Read(Read)Method
-getItems() {
+getTasks() {
   return this.http
-    .get(this.baseURL + '/api/taska')
+    .get(this.baseURL + '/api/tasks')
     .pipe(map(this.extractData), catchError(this.handleError));
 }
 
@@ -49,16 +49,16 @@ private extractData(res: Response) {
   }
 
 
-  addItem(item) {
-    this.http.post(this.baseURL + "/api/tasks", item).subscribe(res => {
-      this.items = res;
+  addTask(task) {
+    this.http.post(this.baseURL + "/api/tasks", task).subscribe(res => {
+      this.tasks = res;
       this.dataChangeSubject.next(true);
     });
   }
 
-  editItem(item, index) {
-    this.http.post(this.baseURL + "/api/tasks" + item._id, item).subscribe(res => {
-      this.items = res;
+  editTask(task, index) {
+    this.http.post(this.baseURL + "/api/tasks" + task._id, task).subscribe(res => {
+      this.tasks = res;
       this.dataChangeSubject.next(true);
     });
   }

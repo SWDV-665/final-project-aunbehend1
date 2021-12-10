@@ -16,19 +16,19 @@ export class InputDialogServiceProvider {
   }
 
 
-  async showPrompt(item?, index?) {
+  async showPrompt(task?, index?) {
     const prompt = await this.alertCtrl.create({
-      message: item ? "Please edit item..." : "Please enter item...",
+      message: task ? "Please edit task..." : "Please enter task...",
       inputs: [
         {
           name: 'taskName',
           placeholder: 'taskName',
-          value: item ? item.name : null
+          value: task ? task.name : null
         },
         {
           name: 'date',
           placeholder: 'date',
-          value: item ? item.quantity : null
+          value: task ? task.date : null
         },
       ],
       buttons: [
@@ -40,13 +40,13 @@ export class InputDialogServiceProvider {
         },
         {
           text: 'Save',
-          handler: item => {
-            console.log('Saved clicked', item);
+          handler: task => {
+            console.log('Saved clicked', task);
             if (index !== undefined) {
-              this.dataService.editItem(item, index);
+              this.dataService.editTask(task, index);
             }
             else {
-              this.dataService.addItem(item);
+              this.dataService.addTask(task);
             }
 
           }

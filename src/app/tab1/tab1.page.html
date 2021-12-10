@@ -14,20 +14,20 @@
     </ion-header>
   
     <ion-list>
-      <ion-item-sliding  *ngFor="let item of items; let i = index">
+      <ion-item-sliding  *ngFor="let task of tasks; let i = index">
         <ion-item>
           <div>
-          <h2>{{item.name}}</h2>
-          <p>{{item.quantity}}</p>
+          <h2>{{task.name}}</h2>
+          <p>{{date}}</p>
         </div>
         </ion-item>
         <ion-item-options>
-          <button (click)="editItem(item, i)" ion-button color="primary" icon-start>
+          <button (click)="editTask(task, i)" ion-button color="primary" icon-start>
             <ion-icon name="create"></ion-icon>
             Edit
           </button>
 
-          <button (click)="shareItem(item, i)" ion-button color="light" icon-start>
+          <button (click)="shareTask(task, i)" ion-button color="light" icon-start>
             <ion-icon name="share"></ion-icon>
             Share
           </button>
@@ -37,7 +37,7 @@
     </ion-list>
   
     <ion-fab vertical="center" horizontal="end" slot="fixed">
-      <button (click)="addItem()" ion-fab mini>
+      <button (click)="addTask()" ion-fab mini>
         <ion-icon name="add-circle" size="large"></ion-icon>
       </button>
     </ion-fab>

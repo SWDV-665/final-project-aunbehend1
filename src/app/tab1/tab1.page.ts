@@ -15,7 +15,7 @@ import { InputDialogServiceProvider } from '../input-dialog-service.service';
 export class Tab1Page {
 
   title = "Tasks I have completed";
-  items: any = [];
+  tasks: any = [];
   errorMessage: string;
 
   constructor(
@@ -23,38 +23,38 @@ export class Tab1Page {
     public inputDialogService: InputDialogServiceProvider, public socialSharing: SocialSharing, public navCtrl: NavController
   ) {
     dataService.dataChanged$.subscribe((dataChanged: boolean) => {
-      this.loadItems();
+      this.loadTasks();
     });
-    this.loadItems();
+    this.loadTasks();
   }
   ionViewDidLoad() {
-    this.loadItems();
+    this.loadTasks();
   }
-  loadItems() {
-    this.dataService.getItems().subscribe(
-      (items) => (this.items = items),
+  loadTasks() {
+    this.dataService.getTasks().subscribe(
+      (tasks) => (this.tasks = tasks),
       (error) => (this.errorMessage = <any>error)
     );
   }
 
-  async editItem(item, index) {
-    console.log("Edit Task - ", item, index);
+  async editTask(task, index) {
+    console.log("Edit Task - ", task, index);
     const toast = await this.toastCtrl.create({
-      message: 'Editing Item - ' + index + " ...",
+      message: 'Editing Task - ' + index + " ...",
       duration: 3000
     });
     toast.present();
-    this.showEditItemPrompt({ item, index });
+    this.showEditTaskPrompt({ task, index });
     }  
   
-  addItem() {
+  addTask() {
     console.log("Adding Task");
-    this.showAddItemPrompt();
+    this.showAddTaskPrompt();
     }
   
-  async showAddItemPrompt() {
+  async showAddTaskPrompt() {
     const prompt = await this.alertController.create({
-      message: "Please enter item...",
+      message: "Please enter Task...",
       inputs: [
           {
             name: 'TaskName',
@@ -74,9 +74,9 @@ export class Tab1Page {
           },
           {
             text: 'Save',
-            handler: item => {
-              console.log('Saved clicked', item);
-              this.items.push(item);
+            handler: task => {
+              console.log('Saved clicked', task);
+              this.tasks.push(task);
             }
           }
         ]
@@ -84,19 +84,19 @@ export class Tab1Page {
       prompt.present();
     }
   
-  async showEditItemPrompt({ item, index }: { item; index; }) {
+  async showEditTaskPrompt({ task, index }: { task; index; }) {
     const prompt = await this.alertController.create({
         message: "Edit Task Name",
         inputs: [
           {
             name: 'TaskName',
             placeholder: 'TaskName',
-            value: item.name
+            value: task.name
           },
           {
             name: 'date',
             placeholder: 'date',
-            value: item.date
+            value: task.date
           },
         ],
         buttons: [
@@ -108,9 +108,9 @@ export class Tab1Page {
           },
           {
             text: 'Save',
-            handler: item => {
-              console.log('Saved clicked', item);
-              this.items[index] = item;
+            handler: task => {
+              console.log('Saved clicked', task);
+              this.tasks[index] = task;
             }
           }
         ]
